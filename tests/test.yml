@@ -1,0 +1,5 @@
+---
+- hosts: localhost
+  remote_user: chris
+  roles:
+    - zalari.deploy-docker-compose

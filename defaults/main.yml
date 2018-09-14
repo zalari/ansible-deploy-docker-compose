@@ -1,0 +1,12 @@
+---
+# defaults file for deploy-docker-compose
+#ssh_host: '192.168.88.8'
+#ssh_user: 'root'
+#ssh_port: '22'
+
+docker_compose_path: '/usr/local/bin/docker-compose'
+
+remote_deploy_path: '/tmp/dockerApps'
+remote_deploy_name: 'hello-world'
+
+deploy_path: './tests/fixture'

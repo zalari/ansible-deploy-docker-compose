@@ -1,0 +1,18 @@
+---
+# tasks file for deploy-docker-compose
+
+- name: Copy Project to remote host
+  copy:
+    src: '{{ deploy_path }}'
+    dest: '{{ remote_deploy_path }}/{{ remote_deploy_name }}'
+    #owner: '{{ item.owner | d(omit) }}'
+    #group: '{{ item.group | d(omit) }}'
+    #mode: '{{ item.mode | d(omit) }}'
+    #directory_mode: '{{ item.directory_mode | d(omit) }}'
+    #follow: '{{ item.follow | d(omit) }}'
+    #force: '{{ item.force | d(omit) }}'
+
+- name: Start docker-compose remotely
+  shell: ls -lah
+  args:
+    chdir: '{{ remote_deploy_path }}/{{ remote_deploy_name }}'
