@@ -1,0 +1,30 @@
+---
+- hosts: localhost
+  roles:
+    - role: zalari.deploy_docker_compose
+      deploy_path: fixture/
+      remote_deploy_base_path: /tmp/dockerApps
+      remote_deploy_name: hello-world
+      remote_pull_images: True
+  tasks:
+
+    - name: Test if fixture is running
+      uri:
+        url: http://{{ ansible_hostname }}:8080
+      register: http_response
+
+    - name: Fail, if fixture is not running
+      fail:
+        msg: "Fixture is not running..."
+      when: http_response.status != 200
+
+    # TODO: implement tearing down as own role
+#    - name: Tear down remote fixture
+#      shell: docker-compose down --rmi all
+#      args:
+#        chdir: '{{ remote_deploy_path }}'
+#
+
+
+
+

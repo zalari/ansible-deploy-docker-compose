@@ -1,0 +1,29 @@
+---
+# tasks file for deploy-docker-compose
+
+- name: Set fact for local docker-compose.yml
+  set_fact: local_docker_compose='{{ deploy_path }}docker-compose.yml'
+
+- name: Fail if no docker-compose.yml is present in project
+  fail:
+    msg: 'No docker-compose.yml found in {{ deploy_path }}'
+  when: not (local_docker_compose is file)
+
+- name: Copy project to remote host
+  copy:
+    src: '{{ deploy_path }}'
+    dest: '{{ remote_deploy_base_path }}/{{ remote_deploy_name }}'
+
+- name: Set fact for remote_deploy_path
+  set_fact: remote_deploy_path='{{ remote_deploy_base_path }}/{{ remote_deploy_name }}'
+
+- name: Pull images from docker-compose remotely
+  shell: docker-compose pull
+  args:
+    chdir: '{{ remote_deploy_path }}'
+  when: remote_pull_images
+
+- name: Start stack with docker-compose remotely
+  shell: docker-compose up -d
+  args:
+    chdir: '{{ remote_deploy_path }}'

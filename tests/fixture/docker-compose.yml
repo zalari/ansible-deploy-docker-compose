@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+
+  test-http:
+    image: nginx
+    ports:
+      - 8080:80
