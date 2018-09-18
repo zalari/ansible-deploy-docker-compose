@@ -1,5 +1,5 @@
 galaxy_info:
-  role_name: zalari.deploy_docker_compose
+  role_name: deploy_docker_compose
   author: Christian Ulbrich
   description: deploys a stack by copying a docker-compose.yml and remotely starting it.
   company: Zalari GmbH
