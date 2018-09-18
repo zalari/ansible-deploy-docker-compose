@@ -17,6 +17,10 @@
 - name: Set fact for remote_deploy_path
   set_fact: remote_deploy_path='{{ remote_deploy_base_path }}/{{ remote_deploy_name }}'
 
+- name: Login in to remote docker registry
+  shell: docker login -p {{ remote_docker_login_pass }} -u {{ remote_docker_login_user }} {{ remote_docker_login_registry }}
+  when: remote_docker_login_pass is defined and remote_docker_login_user is defined
+
 - name: Pull images from docker-compose remotely
   shell: docker-compose pull
   args:

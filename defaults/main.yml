@@ -6,4 +6,8 @@ remote_deploy_name: 'docker-stack'
 
 remote_pull_images: 'False'
 
+#remote_docker_login_registry:
+#remote_docker_login_user:
+#remote_docker_login_pass:
+
 deploy_path: '.'
