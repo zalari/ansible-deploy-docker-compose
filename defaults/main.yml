@@ -5,6 +5,8 @@ remote_deploy_base_path: '/srv/dockerApps'
 remote_deploy_name: 'docker-stack'
 
 remote_pull_images: 'False'
+remote_remove_only: 'False'
+remote_remove_args: '--rmi all --remove-orphans'
 
 #remote_docker_login_registry:
 #remote_docker_login_user:
