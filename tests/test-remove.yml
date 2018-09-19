@@ -1,0 +1,23 @@
+---
+- hosts: localhost
+  roles:
+    - role: zal_ari.deploy_docker_compose
+      deploy_path: fixture/
+      remote_deploy_base_path: /tmp/dockerApps
+      remote_deploy_name: hello-world
+      remote_remove_only: true
+  tasks:
+
+    - name: Test if fixture is not running
+      uri:
+        url: http://{{ ansible_hostname }}:8080
+      ignore_errors: true
+      register: http_response
+
+    - name: Fail, if fixture is running
+      fail:
+        msg: "Fixture is running..."
+      when: http_response.status == 200
+
+
+
