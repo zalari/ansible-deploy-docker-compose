@@ -14,15 +14,16 @@ Role Variables
 * **docker_compose_path**: Path to `docker-compose` binary defaults to `/usr/local/bin/docker-compose`
 * **remote_deploy_base_path**: _Base_ path, where the docker-compose stack is deployed, defaults to `/srv/dockerApps` (which will most likely need _sudo_ perms)
 * **remote_deploy_name**: Folder name that gets appended to the **remote_deploy_base_path**; defaults to `docker-stack`
-* **remote_pull_images**: Should `docker-compose pull` be run before bringing up the stack? Defaults to `False`.
+* **remote_pull_images**: Should `docker-compose pull` be run before bringing up the stack? Defaults to `false`.
 * **deploy_path**: Path where to _local_ `docker-compose.yml` is stored; will get copied to server and **must** end with `/`!
 * _(optional)_ **remote_docker_login_registry**: Private docker registry; initially not set and thus will default to the DockerHub.
 * _(optional)_ **remote_docker_login_user**: Login for (private) docker registry; initially not set.
 * _(optional)_ **remote_docker_login_pass**: Password for (private) docker registry; initially not set. `
+* **remote_remove_only**: Remove remote docker-compose stack by invoking `docker-compose down`; defaults to `false`. Setting it to true, will skip deploying the stack (but will still copy it).
+* **remote_remove_args**: Additional arguments that get passed to `docker-compose down` if **remote_remove_only** is set to `true`. Defaults to `--rmi all --remove-orphans`
 
 **Note:** it is advised to set **remote_docker_login_pass** via the environment when invoking `ansible-playbook` instead of setting it in the actual playbook (and thus keep secrets out of a repo). An easy way to do so would be `ansible-playbook -i inventory -e "remote_docker_login_pass=$MY_DOCKER_LOGIN" playbook-yml`
 
-deploy_path: '.'
 
 Dependencies
 ------------
