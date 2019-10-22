@@ -13,3 +13,5 @@ remote_remove_args: '--rmi all --remove-orphans'
 #remote_docker_login_pass:
 
 deploy_path: '.'
+
+force_recreation: false

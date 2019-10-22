@@ -19,6 +19,8 @@ Role Variables
 * _(optional)_ **remote_docker_login_registry**: Private docker registry; initially not set and thus will default to the DockerHub.
 * _(optional)_ **remote_docker_login_user**: Login for (private) docker registry; initially not set.
 * _(optional)_ **remote_docker_login_pass**: Password for (private) docker registry; initially not set. `
+* _(optional)_ **force_recreation**: _Force_ container recreation, by calling `docker-compose down` before bringing the stack `up -d`. It
+ defaults to `false`. This is useful if you have changes that a normal `up -d` would not pick up (i.e. changes in _bind-mounted_ volumes).
 * **remote_remove_only**: Remove remote docker-compose stack by invoking `docker-compose down`; defaults to `false`. Setting it to true, will skip deploying the stack (but will still copy it).
 * **remote_remove_args**: Additional arguments that get passed to `docker-compose down` if **remote_remove_only** is set to `true`. Defaults to `--rmi all --remove-orphans`
 
