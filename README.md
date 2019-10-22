@@ -12,7 +12,7 @@ Role Variables
 --------------
 
 * **docker_compose_path**: Path to `docker-compose` binary defaults to `/usr/local/bin/docker-compose`
-* **remote_deploy_base_path**: _Base_ path, where the docker-compose stack is deployed, defaults to `/srv/dockerApps` (which will most likely need _sudo_ perms)
+* **remote_deploy_base_path**: _Base_ path, where the docker-compose stack is deployed, defaults to `/srv/docker` (which will most likely need _sudo_ perms)
 * **remote_deploy_name**: Folder name that gets appended to the **remote_deploy_base_path**; defaults to `docker-stack`
 * **remote_pull_images**: Should `docker-compose pull` be run before bringing up the stack? Defaults to `false`.
 * **deploy_path**: Path where to _local_ `docker-compose.yml` is stored; will get copied to server and **must** end with `/`!
@@ -39,7 +39,7 @@ Including an example of how to use your role (for instance, with variables passe
       roles:
         - role: zal_ari.deploy_docker_compose
           deploy_path: test/fixture/
-          remote_deploy_base_path: /tmp/dockerApps
+          remote_deploy_base_path: /tmp/docker
           remote_deploy_name: hello-world
           remote_pull_images: True
 

@@ -1,7 +1,7 @@
 ---
 docker_compose_path: '/usr/local/bin/docker-compose'
 
-remote_deploy_base_path: '/srv/dockerApps'
+remote_deploy_base_path: '/srv/docker'
 remote_deploy_name: 'docker-stack'
 
 remote_pull_images: false
