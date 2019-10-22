@@ -1,5 +1,5 @@
 ---
-- hosts: localhost
+- hosts: all
   roles:
     - role: zal_ari.deploy_docker_compose
       deploy_path: fixture/

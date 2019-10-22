@@ -35,8 +35,6 @@ Nope.
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
     - hosts: servers
       roles:
         - role: zal_ari.deploy_docker_compose
@@ -48,7 +46,7 @@ Including an example of how to use your role (for instance, with variables passe
 TODO
 ----
 * allow for login into multiple private docker registries
-* document test
+* add docker-based test env
 * use Travis for building and automagic releases to Ansible Galaxy.
 
 PRs are welcome.
