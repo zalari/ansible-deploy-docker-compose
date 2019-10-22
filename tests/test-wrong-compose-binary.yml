@@ -1,0 +1,12 @@
+---
+- hosts: all
+  roles:
+    - role: zal_ari.deploy_docker_compose
+      deploy_path: fixture/
+      remote_deploy_base_path: /tmp/dockerApps
+      remote_deploy_name: hello-world
+      remote_pull_images: false
+      force_recreation: true
+      docker_compose_path: '/tmp/cocker-dompose'
+
+

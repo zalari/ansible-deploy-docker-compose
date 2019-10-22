@@ -4,13 +4,21 @@
 - name: Set fact for local docker-compose.yml
   set_fact: local_docker_compose='{{ deploy_path }}docker-compose.yml'
 
-- name: Set fact for remote_deploy_path
-  set_fact: remote_deploy_path='{{ remote_deploy_base_path }}/{{ remote_deploy_name }}'
-
 - name: Fail if no docker-compose.yml is present in project
   fail:
     msg: 'No docker-compose.yml found in {{ deploy_path }}'
   when: not (local_docker_compose is file)
+
+- name: Set fact for remote_deploy_path
+  set_fact: remote_deploy_path='{{ remote_deploy_base_path }}/{{ remote_deploy_name }}'
+
+- name: Set fact for remote docker_compose_path
+  set_fact: remote_docker_compose_path='{{ docker_compose_path }}'
+
+- name: Fail if no docker-compose binary is present on remote
+  fail:
+    msg: 'No docker-compose binary found at {{ docker_compose_path }}'
+  when: not (remote_docker_compose_path is file)
 
 - name: Copy project to remote host
   copy:
@@ -18,10 +26,16 @@
     dest: '{{ remote_deploy_path }}'
 
 - name: Remove remote docker stack
-  shell: docker-compose down {{ remote_remove_args }}
+  shell: '{{docker_compose_path}} down {{ remote_remove_args }}'
   args:
     chdir: '{{ remote_deploy_path }}'
   when: remote_remove_only
+
+- name: Remove remote containers for stack
+  shell: '{{docker_compose_path}} down'
+  args:
+    chdir: '{{ remote_deploy_path }}'
+  when: force_recreation
 
 - name: Delete remote docker stack
   file:
@@ -34,13 +48,13 @@
   when: remote_docker_login_pass is defined and remote_docker_login_user is defined and not remote_remove_only
 
 - name: Pull images from docker-compose remotely
-  shell: docker-compose pull
+  shell: '{{docker_compose_path}} pull'
   args:
     chdir: '{{ remote_deploy_path }}'
   when: remote_pull_images and not remote_remove_only
 
 - name: Start stack with docker-compose remotely
-  shell: docker-compose up -d
+  shell: '{{docker_compose_path}} up -d'
   args:
     chdir: '{{ remote_deploy_path }}'
   when: not remote_remove_only
