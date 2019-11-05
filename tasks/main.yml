@@ -32,7 +32,7 @@
   when: remote_remove_only
 
 - name: Remove remote containers for stack
-  shell: '{{docker_compose_path}} down'
+  shell: '{{docker_compose_path}} down {{ force_recreation_args }}'
   args:
     chdir: '{{ remote_deploy_path }}'
   when: force_recreation
